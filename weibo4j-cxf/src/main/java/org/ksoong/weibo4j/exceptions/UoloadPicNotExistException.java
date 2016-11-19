@@ -1,4 +1,4 @@
-package org.ksoong.weibo4j.exception;
+package org.ksoong.weibo4j.exceptions;
 
 public class UoloadPicNotExistException extends RuntimeException {
 

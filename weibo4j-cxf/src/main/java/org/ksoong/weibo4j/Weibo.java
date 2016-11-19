@@ -18,8 +18,9 @@ import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
-import org.ksoong.weibo4j.exception.ParseResultException;
-import org.ksoong.weibo4j.exception.UoloadPicNotExistException;
+import org.ksoong.weibo4j.exceptions.ParseResultException;
+import org.ksoong.weibo4j.exceptions.UoloadPicNotExistException;
+import org.ksoong.weibo4j.tools.SecureIdentityTools;
 
 public class Weibo {
     
@@ -59,8 +60,9 @@ public class Weibo {
     final static String LONG = "long";
     final static String PIC = "pic";
     final static String ANNOTATIONS = "annotations";
-    final static String ACCESS_TOKEN = "access_token";
-    final static String API_BASE =  "https://api.weibo.com/2";
+    
+    public final static String ACCESS_TOKEN = "access_token";
+    public final static String API_BASE =  "https://api.weibo.com/2";
 
     protected String access_token;
     
@@ -69,7 +71,7 @@ public class Weibo {
     }
     
     String access_token() {
-        return this.access_token;
+        return SecureIdentityTools.decode(access_token);
     }
     
     String doPostMultipart(String api, String pic) {
@@ -82,7 +84,7 @@ public class Weibo {
         
         List<Attachment> atts = new LinkedList<>();
         ContentDisposition tockencd = new ContentDisposition("form-data; name=\"access_token\";");
-        atts.add(new Attachment(ACCESS_TOKEN, new ByteArrayInputStream(access_token.getBytes()), tockencd));
+        atts.add(new Attachment(ACCESS_TOKEN, new ByteArrayInputStream(access_token().getBytes()), tockencd));
         
         String[] keys = prams.keys;
         for(int i = 0 ; i < keys.length ; i ++){
@@ -120,7 +122,7 @@ public class Weibo {
     String doPost(String api, Prameters prams) {
         WebClient wc = WebClient.create(api);
         Form form = new Form();
-        form.param(ACCESS_TOKEN, access_token);
+        form.param(ACCESS_TOKEN, access_token());
         String[] keys = prams.keys;
         for(int i = 0 ; i < keys.length ; i ++){
             form.param(keys[i], prams.value(i).toString());

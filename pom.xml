@@ -4,7 +4,7 @@
 
   <groupId>org.ksoong</groupId>
   <artifactId>weibo4j</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Weibo Client</name>
@@ -35,11 +35,23 @@
                 <artifactId>cxf-rt-rs-client</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.ksoong</groupId>
+                <artifactId>weibo4j-cxf</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
         <module>weibo4j-cxf</module>
+        <module>examples</module>
     </modules>
   
   <build>
