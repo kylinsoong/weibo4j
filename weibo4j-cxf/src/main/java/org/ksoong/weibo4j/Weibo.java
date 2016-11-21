@@ -1,5 +1,7 @@
 package org.ksoong.weibo4j;
 
+import static org.ksoong.weibo4j.tools.SecureIdentityTools.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +22,6 @@ import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.ksoong.weibo4j.exceptions.ParseResultException;
 import org.ksoong.weibo4j.exceptions.UoloadPicNotExistException;
-import org.ksoong.weibo4j.tools.SecureIdentityTools;
 
 public class Weibo {
     
@@ -71,7 +72,7 @@ public class Weibo {
     }
     
     String access_token() {
-        return SecureIdentityTools.decode(access_token);
+        return decode(access_token);
     }
     
     String doPostMultipart(String api, String pic) {
@@ -123,6 +124,24 @@ public class Weibo {
         WebClient wc = WebClient.create(api);
         Form form = new Form();
         form.param(ACCESS_TOKEN, access_token());
+        String[] keys = prams.keys;
+        for(int i = 0 ; i < keys.length ; i ++){
+            form.param(keys[i], prams.value(i).toString());
+        }
+        Response resp = wc.form(form);
+        String result = "";
+        try {
+            result = IOUtils.toString((InputStream) resp.getEntity());
+        } catch (IOException e) {
+            throw new ParseResultException(e);
+        }
+        handleResponse(resp, wc);
+        return result;
+    }
+    
+    String doPostOauth2(String api, Prameters prams) {
+        WebClient wc = WebClient.create(api);
+        Form form = new Form();
         String[] keys = prams.keys;
         for(int i = 0 ; i < keys.length ; i ++){
             form.param(keys[i], prams.value(i).toString());
