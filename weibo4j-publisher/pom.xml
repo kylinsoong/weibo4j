@@ -6,10 +6,10 @@
       <groupId>org.ksoong</groupId>
       <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>weibo4j-examples</artifactId>
+  <artifactId>weibo4j-publisher</artifactId>
   <packaging>jar</packaging>
 
-  <name>Examples</name>
+  <name>Publisher</name>
 
     <dependencies>
         <dependency>
@@ -19,6 +19,11 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
   

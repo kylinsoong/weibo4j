@@ -1,0 +1,1137 @@
+
+<!DOCTYPE html>
+<html class="ready" lang="en"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="shenma-site-verification" content="8a69823d7371d1eec4379853d25200cd_1448504990"> 
+    <title>Kylin Soong . Blog</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/feed.xml" rel="alternate" title="Kylin Soong . Blog Atom feed" type="application/atom+xml">
+    <link href="/css/screen.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.js"></script>
+    <![endif]-->
+    <link href="/favicon.ico" rel="shortcut icon">
+
+</head>
+
+  <body class="blog index">
+    <header class="navbar navbar-fixed-top" id="banner" role="banner">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">
+            <span class="logo"></span>
+            <span class="name">ksoong</span>
+          </a>
+          <nav class="nav-collapse" role="navigation">
+            <ul class="nav">
+              <li><a href="/">Home</a></li>
+	      <!--
+              <li><a href="/lab">Labs</a></li>
+              <li><a href="/blog/">Blog</a></li>
+	      -->
+	      <li><a href="/books">Books</a></li>
+              <li><a href="/archive">Archives</a></li>
+              <li><a href="/slide">Slides</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div style="min-height: 250px;" id="main" role="main">
+      
+<div id="content-header">
+        <div class="container">
+         <h1>
+              <a href="/blog">Blog</a>
+              <!--a href="#">&raquo;</a>
+              <a href="/tree">数据结构 - 树</a-->
+          </h1>
+        </div>
+</div>
+      <div class="container">
+        <div id="content">
+          
+<h2 class="title">
+                 <a class="post-link" href="/tree">数据结构 - 树</a>
+              </h2>
+ 
+<header class="post">
+              <div class="byline">
+                <span class="author">Posted by
+                <a href="/about">Kylin Soong</a> on</span>
+                <span class="dateinline">Oct 27, 2016</span>
+		<i class="icon-tags"></i> categorized as <a class="tag" href="/categories/java">java</a>
+              </div>
+            </header>
+
+ 
+<ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">基本概念</a>    <ul>
+      <li><a href="#section-1" id="markdown-toc-section-1">树的实现</a></li>
+      <li><a href="#section-2" id="markdown-toc-section-2">树的两种遍历方式</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-3" id="markdown-toc-section-3">二叉树</a>    <ul>
+      <li><a href="#section-4" id="markdown-toc-section-4">二叉树的实现</a></li>
+      <li><a href="#section-5" id="markdown-toc-section-5">二叉树的三种遍历方式</a></li>
+      <li><a href="#adt---" id="markdown-toc-adt---">查找树 ADT - 二叉查找树</a>        <ul>
+          <li><a href="#section-6" id="markdown-toc-section-6">定义</a></li>
+          <li><a href="#section-7" id="markdown-toc-section-7">二叉查找树的实现</a>            <ul>
+              <li><a href="#contains-" id="markdown-toc-contains-">contains 方法</a></li>
+              <li><a href="#findmin-" id="markdown-toc-findmin-">findMin 方法</a></li>
+              <li><a href="#findmax-" id="markdown-toc-findmax-">findMax 方法</a></li>
+              <li><a href="#insert-" id="markdown-toc-insert-">insert 方法</a></li>
+              <li><a href="#remove-" id="markdown-toc-remove-">remove 方法</a></li>
+              <li><a href="#printtree-" id="markdown-toc-printtree-">printTree 方法</a></li>
+            </ul>
+          </li>
+          <li><a href="#section-8" id="markdown-toc-section-8">示例</a>            <ul>
+              <li><a href="#insert--1" id="markdown-toc-insert--1">1. 通过 insert 初始化树</a></li>
+              <li><a href="#section-9" id="markdown-toc-section-9">2. 添加新节点</a></li>
+              <li><a href="#section-10" id="markdown-toc-section-10">3. 查找最大和最小节点</a></li>
+              <li><a href="#section-11" id="markdown-toc-section-11">4. 查找树中是否包含某节点</a></li>
+              <li><a href="#section-12" id="markdown-toc-section-12">5. 删除只有一个子节点的节点</a></li>
+              <li><a href="#section-13" id="markdown-toc-section-13">6. 删除有两个子节点的节点</a></li>
+              <li><a href="#section-14" id="markdown-toc-section-14">7. 发生多次替换的复杂节点删除</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#avl----self-balancing-binary-search-treehttpsenwikipediaorgwikiself-balancingbinarysearchtree" id="markdown-toc-avl----self-balancing-binary-search-treehttpsenwikipediaorgwikiself-balancingbinarysearchtree">AVL 树 - 带有平衡条件的二叉查找树(<a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree">Self-balancing binary search tree</a>)</a>        <ul>
+          <li><a href="#section-15" id="markdown-toc-section-15">定义</a></li>
+          <li><a href="#avl-" id="markdown-toc-avl-">AVL 树的两种旋转方式</a></li>
+          <li><a href="#avl--1" id="markdown-toc-avl--1">AVL 树的实现</a>            <ul>
+              <li><a href="#contains--1" id="markdown-toc-contains--1">contains 方法</a></li>
+              <li><a href="#findmin--1" id="markdown-toc-findmin--1">findMin 方法</a></li>
+              <li><a href="#findmax--1" id="markdown-toc-findmax--1">findMax 方法</a></li>
+              <li><a href="#height-" id="markdown-toc-height-">height 方法</a></li>
+              <li><a href="#balance-" id="markdown-toc-balance-">balance 方法</a></li>
+              <li><a href="#rotatewithleftchild-doublewithleftchild-rotatewithrightchild-doublewithrightchild-" id="markdown-toc-rotatewithleftchild-doublewithleftchild-rotatewithrightchild-doublewithrightchild-">rotateWithLeftChild, doubleWithLeftChild, rotateWithRightChild, doubleWithRightChild 方法</a></li>
+              <li><a href="#insert--2" id="markdown-toc-insert--2">insert 方法</a></li>
+              <li><a href="#remove--1" id="markdown-toc-remove--1">remove 方法</a></li>
+              <li><a href="#printtree--1" id="markdown-toc-printtree--1">printTree 方法</a></li>
+            </ul>
+          </li>
+          <li><a href="#section-16" id="markdown-toc-section-16">示例</a>            <ul>
+              <li><a href="#section-17" id="markdown-toc-section-17">01. 插入节点 3，2，1</a></li>
+              <li><a href="#section-18" id="markdown-toc-section-18">02. 插入节点 4，5</a></li>
+              <li><a href="#section-19" id="markdown-toc-section-19">03. 插入节点 6</a></li>
+              <li><a href="#section-20" id="markdown-toc-section-20">04. 插入节点 7</a></li>
+              <li><a href="#section-21" id="markdown-toc-section-21">05. 插入节点 16，15</a></li>
+              <li><a href="#section-22" id="markdown-toc-section-22">06. 插入节点 14</a></li>
+              <li><a href="#section-23" id="markdown-toc-section-23">07. 插入节点 13</a></li>
+              <li><a href="#section-24" id="markdown-toc-section-24">08. 插入节点 12</a></li>
+              <li><a href="#section-25" id="markdown-toc-section-25">09. 插入节点 11</a></li>
+              <li><a href="#section-26" id="markdown-toc-section-26">10. 插入节点 10</a></li>
+              <li><a href="#section-27" id="markdown-toc-section-27">11. 插入节点 8，9</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#b-" id="markdown-toc-b-">B 树</a>    <ul>
+      <li><a href="#section-28" id="markdown-toc-section-28">定义</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="section">基本概念</h2>
+
+<p><img src="/assets/blog/java/tree-overview.png" alt="Tree Overview" /></p>
+
+<ul>
+  <li>根(root)</li>
+  <li>边(edge)</li>
+  <li>儿子(child)</li>
+  <li>父亲(parent)</li>
+  <li>一棵树有 N 个节点和 N - 1 条边</li>
+  <li>兄弟(siblings)</li>
+  <li>祖父(grandparent)</li>
+  <li>孙子(grandson)</li>
+  <li>路径(path) - 树中任意两个节点之间只有一条路径</li>
+  <li>深度(depth) - 树中任意两个节点之间路径的长度</li>
+  <li>高(height) - 树中最长的路径</li>
+  <li>祖先(ancestor)</li>
+  <li>后裔(decendant)</li>
+  <li>真祖先(proper ancestor)</li>
+  <li>真后裔(proper decendant)</li>
+</ul>
+
+<h3 id="section-1">树的实现</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class TreeNode&lt;T&gt; {
+    T element;
+    TreeNode&lt;T&gt; firstChild;
+    TreeNode&lt;T&gt; nextSibling;
+}
+</code></pre>
+</div>
+
+<h3 id="section-2">树的两种遍历方式</h3>
+
+<ol>
+  <li>前序遍历(preorder traversal) - 对节点的处理在它的诸儿子节点被处理之前进行</li>
+  <li>后序遍历(postorder traversal) - 对节点的处理在它的诸儿子节点被处理之后进行</li>
+</ol>
+
+<h2 id="section-3">二叉树</h2>
+
+<p><strong>二叉树</strong>(binary tree) 是特殊的树 - 树中的每个节点都不能有多于两个的儿子.</p>
+
+<p><img src="/assets/blog/java/tree-binary-tree.png" alt="Tree binary tree" /></p>
+
+<h3 id="section-4">二叉树的实现</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class BinaryNode&lt;T&gt; {
+    T element;
+    BinaryNode&lt;T&gt; left;
+    BinaryNode&lt;T&gt; right;
+}
+</code></pre>
+</div>
+
+<h3 id="section-5">二叉树的三种遍历方式</h3>
+
+<ol>
+  <li>前序遍历(preorder traversal) - 对节点的处理在它的诸儿子节点被处理之前进行</li>
+  <li>中序遍历(inorder traversal) - 处理节点之前先处理左节点，处理节点之后再处理后节点</li>
+  <li>后序遍历(postorder traversal) - 对节点的处理在它的诸儿子节点被处理之后进行</li>
+</ol>
+
+<h3 id="adt---">查找树 ADT - 二叉查找树</h3>
+
+<h4 id="section-6">定义</h4>
+
+<ul>
+  <li>树中每个节点 X，它的左子树中所有的节点对应的值小于节点 X 的值.</li>
+  <li>二叉查找树的平均深度是 <strong>O(log N)</strong></li>
+  <li>二叉查找树要求所有节点都能够排序</li>
+</ul>
+
+<h4 id="section-7">二叉查找树的实现</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class BinarySearchTree&lt;T extends Comparable&lt;? super T&gt;&gt; {
+
+    private BinaryNode&lt;T&gt; root;
+    
+    public BinarySearchTree() {
+        this.root = null;
+    }
+    
+    public void makeEmpty() {
+        this.root = null;
+    }
+    
+    public boolean isEmpty() {
+        return this.root == null ;
+    }
+    
+    public boolean contains(T x) {
+        return contains(x, root);
+    }
+    
+    public T findMin() {
+        if(isEmpty())
+            throw new UnderflowException();
+        return findMin(root).element;
+    }
+
+    public T findMax() {
+        if(isEmpty())
+            throw new UnderflowException();
+        return findMax(root).element;
+    }
+    
+    public void insert(T x) {
+        this.root = insert(x, root);
+    }
+
+    public void remove(T x) {
+        this.root = remove(x, root);
+    }
+    
+    public void printTree() {
+        printTree(root);
+    }
+}
+</code></pre>
+</div>
+
+<h5 id="contains-">contains 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private boolean contains(T x, BinaryNode&lt;T&gt; t) {
+        
+        if(null == t)
+            return false;
+        
+        int compareResult = x.compareTo(t.element);
+        if(compareResult &lt; 0) {
+            return contains(x, t.left);
+        } else if(compareResult &gt; 0) {
+            return contains(x, t.right);
+        } else {
+            return true;
+        }
+    }
+</code></pre>
+</div>
+
+<h5 id="findmin-">findMin 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private BinaryNode&lt;T&gt; findMin(BinaryNode&lt;T&gt; t) {
+        
+        if(t == null) {
+            return null;
+        } else if (t.left == null) {
+            return t;
+        }
+        
+        return findMin(t.left);
+    }
+</code></pre>
+</div>
+
+<h5 id="findmax-">findMax 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private BinaryNode&lt;T&gt; findMax(BinaryNode&lt;T&gt; t) {
+        
+        if(t == null) {
+            return null;
+        } else if(t.right == null) {
+            return t;
+        }
+        
+        return findMax(t.right);
+    }
+</code></pre>
+</div>
+
+<h5 id="insert-">insert 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private BinaryNode&lt;T&gt; insert(T x, BinaryNode&lt;T&gt; t) {
+        
+        if(null == t)
+            return new BinaryNode&lt;&gt;(x, null, null);
+        
+        int compareResult = x.compareTo(t.element);
+        if(compareResult &lt; 0) {
+            t.left = insert(x, t.left);
+        } else if(compareResult &gt; 0) {
+            t.right = insert(x, t.right);
+        }
+
+        return t;
+    }
+</code></pre>
+</div>
+
+<h5 id="remove-">remove 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private BinaryNode&lt;T&gt; remove(T x, BinaryNode&lt;T&gt; t) {
+        
+        if(null == t)
+            return t;
+        
+        int compareResult = x.compareTo(t.element);
+        if(compareResult &lt; 0) {
+            t.left = remove(x, t.left);
+        } else if (compareResult &gt; 0) {
+            t.right = remove(x, t.right);
+        } else if(t.left != null &amp;&amp; t.right != null) {
+            t.element = findMin(t.right).element;
+            t.right = remove(t.element, t.right);
+        } else {
+            t = (t.left != null) ? t.left : t.right;
+        }
+        
+        return t;
+    }
+</code></pre>
+</div>
+
+<h5 id="printtree-">printTree 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private void printTree(BinaryNode&lt;T&gt; t) {
+        if(t != null) {
+            printTree(t.left);
+            System.out.println(t.element);
+            printTree(t.right);
+        }
+    }
+</code></pre>
+</div>
+
+<h4 id="section-8">示例</h4>
+
+<h5 id="insert--1">1. 通过 insert 初始化树</h5>
+
+<p>本示例通过 insert 初始化树的形状如下</p>
+
+<p><img src="/assets/blog/java/tree-binary-search-tree-example-1.png" alt="Binary Search Tree Example 1" /></p>
+
+<blockquote>
+  <p>后面示例中不做特别说明都使用本示例中如上所示的树。</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BinarySearchTree&lt;Integer&gt; tree = new BinarySearchTree&lt;Integer&gt;();
+tree.insert(6);
+tree.insert(2);
+tree.insert(1);
+tree.insert(4);
+tree.insert(3);
+tree.insert(8);
+</code></pre>
+</div>
+
+<h5 id="section-9">2. 添加新节点</h5>
+
+<p>如下图所示，我们向示例 1 中的树添加新节点 5</p>
+
+<p><img src="/assets/blog/java/tree-binary-search-tree-example-2.png" alt="Binary Search Tree Example 2" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BinarySearchTree&lt;Integer&gt; tree = sample1();
+tree.insert(5);
+</code></pre>
+</div>
+
+<h5 id="section-10">3. 查找最大和最小节点</h5>
+
+<p>基于示例 1 中的树通过如下代码查找最大和最小节点</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BinarySearchTree&lt;Integer&gt; tree = sample1();
+System.out.println(tree.findMax());
+System.out.println(tree.findMin());
+</code></pre>
+</div>
+
+<p>运行结果输出</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>8
+1
+</code></pre>
+</div>
+
+<h5 id="section-11">4. 查找树中是否包含某节点</h5>
+
+<p>基于示例 1 中的树通过如下代码查找树中是否包含某节点</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BinarySearchTree&lt;Integer&gt; tree = sample1();
+System.out.println(tree.contains(8));
+System.out.println(tree.contains(5));
+</code></pre>
+</div>
+
+<p>运行结果输出</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>true
+false
+</code></pre>
+</div>
+
+<h5 id="section-12">5. 删除只有一个子节点的节点</h5>
+
+<p>基于示例 1 中的树的节点 4 只有一个左节点3，本示例演示删除节点4，结果如下图</p>
+
+<p><img src="/assets/blog/java/tree-binary-search-tree-example-3.png" alt="Binary Search Tree Example 3" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BinarySearchTree&lt;Integer&gt; tree = sample1();
+tree.remove(4);
+</code></pre>
+</div>
+
+<h5 id="section-13">6. 删除有两个子节点的节点</h5>
+
+<p>基于示例 1 中的树的节点 2 只有一个左节点 1 和一个右节点 4，本示例演示删除节点 2，结果如下图</p>
+
+<p><img src="/assets/blog/java/tree-binary-search-tree-example-4.png" alt="Binary Search Tree Example 4" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BinarySearchTree&lt;Integer&gt; tree = sample1();
+tree.remove(2);
+</code></pre>
+</div>
+
+<blockquote>
+  <p>NOTE: 删除有两个子节点的节点的策略是用该节点右子树中最小的节点替换该节点</p>
+</blockquote>
+
+<h5 id="section-14">7. 发生多次替换的复杂节点删除</h5>
+
+<p>如下左图，删除树中节点 2，节点 2 右子树中最小的节点为 3，且 节点 3 有右子树</p>
+
+<p><img src="/assets/blog/java/tree-binary-search-tree-example-5.png" alt="Binary Search Tree Example 5" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BinarySearchTree&lt;Integer&gt; tree = sample2();
+tree.remove(2); 
+</code></pre>
+</div>
+
+<blockquote>
+  <p>NOTE: 如上删除过程发生了两次节点替换：节点 2 替换 节点 2 右子树最小的节点 3；节点 3 替换 节点 3 右子树最小的节点 4.</p>
+</blockquote>
+
+<h3 id="avl----self-balancing-binary-search-treehttpsenwikipediaorgwikiself-balancingbinarysearchtree">AVL 树 - 带有平衡条件的二叉查找树(<a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree">Self-balancing binary search tree</a>)</h3>
+
+<h4 id="section-15">定义</h4>
+
+<ul>
+  <li><strong>AVL 树</strong>是带有平衡条件的二叉查找树(<a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree">Self-balancing binary search tree</a>)</li>
+  <li><strong>平衡条件</strong>指树中每个节点都有相同高度的左子树和右子树</li>
+  <li><strong>理想平衡树(perfectly lalanced tree)</strong> 指由 2^k -1 个节点组成，每个节点都有一个左儿子和右儿子</li>
+  <li>AVL 树是其每个节点的<strong>左子树和右子树的高度最多差 1</strong> 的二叉查找树</li>
+  <li>AVL 树高度一般略大于 <strong>log N</strong>，时间复杂度约为 <strong>O(log N)</strong></li>
+  <li>对 AVL 树的插入可能破坏树的平衡条件，通过<strong>旋转(rotation)</strong>来修正</li>
+</ul>
+
+<h4 id="avl-">AVL 树的两种旋转方式</h4>
+
+<p>对 AVL 树的插入可能破坏树的平衡条件，通过<strong>旋转(rotation)</strong>来修正，AVL 树有两种旋转方式:</p>
+
+<ul>
+  <li>单旋转(single rotation) - 插入发生在”外边”(左儿子的左子树或右儿子的右子树)破坏树的平衡条件，通过单旋转调整</li>
+  <li>双旋转(double rotation) - 插入发生在”内部”(左儿子的右子树或右儿子的左子树)破坏树的平衡条件，通过双旋转调整</li>
+</ul>
+
+<h4 id="avl--1">AVL 树的实现</h4>
+
+<ul>
+  <li>AVLNode</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class AVLNode&lt;T&gt; {
+    T element;
+    AVLNode&lt;T&gt; left;
+    AVLNode&lt;T&gt; right;
+    int height;
+}
+</code></pre>
+</div>
+
+<ul>
+  <li>AVLTree</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class AVLTree&lt;T extends Comparable&lt;? super T&gt;&gt; {
+    
+    private static final int ALLOWED_IMBALANCE = 1;
+    
+    private AVLNode&lt;T&gt; root;
+    
+    public AVLTree() {
+        this.root = null;
+    }
+    
+    public void makeEmpty() {
+        this.root = null;
+    }
+    
+    public boolean isEmpty() {
+        return this.root == null;
+    }
+    
+    public void insert(T x) {
+        this.root = insert(x, root);
+    }
+    
+    public void remove(T x) {
+        this.root = remove(x, root);
+    }
+    
+    public T findMin() {
+        if(isEmpty())
+            throw new UnderflowException();
+        return findMin(root).element;
+    }
+    
+    public T findMax() {
+        if(isEmpty())
+            throw new UnderflowException();
+        return findMax(root).element;
+    }
+    
+    public boolean contains(T x) {
+        return contains(x, root);
+    }
+    
+    public void printTree() {
+        if(isEmpty())
+            System.out.println("Empty tree");
+        else
+            printTree(root);
+    }
+}
+</code></pre>
+</div>
+
+<p>比较<a href="#section-7">二叉查找树的实现</a> 和 AVL 树的实现比较</p>
+
+<ul>
+  <li>contains, findMin, findMax, printTree 方法的实现相同</li>
+  <li>insert, remove AVL 树的实现较<a href="#section-7">二叉查找树的实现</a>复杂，插入和删除后需要考虑树的平衡条件, 通过一个 balance 方法实现</li>
+  <li>AVL 树的节点有深度属性，通过 height 方法来计算节点的深度</li>
+</ul>
+
+<h5 id="contains--1">contains 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private boolean contains(T x, AVLNode&lt;T&gt; t) {
+        
+        if(t == null)
+            return false;
+        
+        int compareResult = x.compareTo(t.element);
+        if(compareResult &lt; 0) {
+            return contains(x, t.left);
+        } else if(compareResult &gt; 0) {
+            return contains(x, t.right);
+        } else {
+            return true;
+        }
+    }
+
+</code></pre>
+</div>
+
+<h5 id="findmin--1">findMin 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private AVLNode&lt;T&gt; findMin(AVLNode&lt;T&gt; t) {
+        
+        if(t == null){
+            return null;
+        } else if(t.left == null){
+            return t;
+        }
+        return findMin(t.left);
+    }
+</code></pre>
+</div>
+
+<h5 id="findmax--1">findMax 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private AVLNode&lt;T&gt; findMax(AVLNode&lt;T&gt; t) {
+        
+        if(t == null) {
+            return null ;
+        } else if(t.right == null) {
+            return t;
+        }
+        return findMax(t.right);
+    }
+</code></pre>
+</div>
+
+<h5 id="height-">height 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private int height(AVLNode&lt;T&gt; t) {
+        return t == null ? -1 : t.height;
+    }
+</code></pre>
+</div>
+
+<h5 id="balance-">balance 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private AVLNode&lt;T&gt; balance(AVLNode&lt;T&gt; t) {
+        
+        if (t == null)
+            return t;
+        
+        if (height(t.left) - height(t.right) &gt; ALLOWED_IMBALANCE) {
+            if (height(t.left.left) &gt;= height(t.left.right)) {
+                t = rotateWithLeftChild(t);
+            } else {
+                t = doubleWithLeftChild(t);
+            }
+        } else if(height(t.right) - height(t.left) &gt; ALLOWED_IMBALANCE) {
+            if (height(t.right.right) &gt;= height(t.right.left)) {
+                t = rotateWithRightChild(t);
+            } else {
+                t = doubleWithRightChild(t);
+            }
+        } 
+        
+        t.height = Math.max(height(t.left), height(t.right)) + 1 ;
+        return t;
+    }
+</code></pre>
+</div>
+
+<h5 id="rotatewithleftchild-doublewithleftchild-rotatewithrightchild-doublewithrightchild-">rotateWithLeftChild, doubleWithLeftChild, rotateWithRightChild, doubleWithRightChild 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private AVLNode&lt;T&gt; rotateWithLeftChild(AVLNode&lt;T&gt; k2) {
+        AVLNode&lt;T&gt; k1 = k2.left;
+        k2.left = k1.right;
+        k1.right = k2;
+        k2.height = Math.max(height(k2.left), height(k2.right)) + 1 ;
+        k1.height = Math.max(height(k1.left), k2.height) + 1;
+        return k1;
+    }
+
+    private AVLNode&lt;T&gt; rotateWithRightChild(AVLNode&lt;T&gt; k1) {
+        AVLNode&lt;T&gt; k2 = k1.right;
+        k1.right = k2.left;
+        k2.left = k1;
+        k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
+        k2.height = Math.max(height(k2.right), k1.height) + 1;
+        return k2;
+    }
+
+    private AVLNode&lt;T&gt; doubleWithLeftChild(AVLNode&lt;T&gt; k3) {
+        k3.left = rotateWithRightChild(k3.left);
+        return rotateWithLeftChild(k3);
+    }
+
+    private AVLNode&lt;T&gt; doubleWithRightChild(AVLNode&lt;T&gt; k1) {
+        k1.right = rotateWithLeftChild(k1.right);
+        return rotateWithRightChild(k1);
+    }
+</code></pre>
+</div>
+
+<h5 id="insert--2">insert 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private AVLNode&lt;T&gt; insert(T x, AVLNode&lt;T&gt; t) {
+        
+        if( t == null) 
+            return new AVLNode&lt;&gt;(x, null, null);
+        
+        int compareResult = x.compareTo(t.element);
+        if(compareResult &lt; 0) {
+            t.left = insert(x, t.left);
+        } else if(compareResult &gt; 0) {
+            t.right = insert(x, t.right);
+        }
+        
+        return balance(t);
+    }
+</code></pre>
+</div>
+
+<h5 id="remove--1">remove 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private AVLNode&lt;T&gt; remove(T x, AVLNode&lt;T&gt; t) {
+        
+        if(t == null)
+            return t;
+        
+        int compareResult = x.compareTo(t.element);
+        if(compareResult &lt; 0) {
+            t.left = remove(x, t.left);
+        } else if(compareResult &gt; 0) {
+            t.right = remove(x, t.right);
+        } else if(t.left != null &amp;&amp; t.right != null) {
+            t.element = this.findMin(t.right).element;
+            t.right = remove(t.element, t.right);
+        } else {
+            t = (t.left != null) ? t.left : t.right;
+        }
+        
+        return balance(t);
+    }
+</code></pre>
+</div>
+
+<h5 id="printtree--1">printTree 方法</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    private void printTree(AVLNode&lt;T&gt; t) {
+
+        if(t != null) {
+            printTree(t.left);
+            System.out.println(t.element);
+            printTree(t.right);
+        }
+    }
+</code></pre>
+</div>
+
+<h4 id="section-16">示例</h4>
+
+<p>本示例从初始化的空 AVL 树开始插入节点 3，2，1，4 ~ 7，倒序插入节点 10 ~ 16，接着在插入节点 8 和节点 9. 本示例的目的是演示 AVL 树如何通过旋转保持平衡条件。</p>
+
+<h5 id="section-17">01. 插入节点 3，2，1</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>AVLTree&lt;Integer&gt; tree = new AVLTree&lt;&gt;();
+tree.insert(3);
+tree.insert(2);
+tree.insert(1);
+</code></pre>
+</div>
+
+<p>在插入节点 1 时 AVL 树的平衡条件在根节点3 处被破坏，通过根节点 3 和它的左儿子 2 之间实行单旋转进行修正:</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-1.png" alt="AVL Tree Example 1" /></p>
+
+<h5 id="section-18">02. 插入节点 4，5</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(4);
+tree.insert(5);
+</code></pre>
+</div>
+
+<p>插入节点 4 没有问题，但在插入节点 5 时破坏了节点 3 的平衡条件，通过节点 3 和它的右儿子 4 之间实行单旋转进行修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-2.png" alt="AVL Tree Example 2" /></p>
+
+<h5 id="section-19">03. 插入节点 6</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(6);
+</code></pre>
+</div>
+
+<p>插入节点 6 导致根节点 2 的平衡条件破坏，通过节点 2 和它的右儿子 4 之间实行单旋转进行修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-3.png" alt="AVL Tree Example 3" /></p>
+
+<h5 id="section-20">04. 插入节点 7</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(7);
+</code></pre>
+</div>
+
+<p>插入节点 7 时破坏了节点 5 的平衡条件，通过节点 5 和它的右儿子 6 之间实行单旋转进行修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-4.png" alt="AVL Tree Example 4" /></p>
+
+<h5 id="section-21">05. 插入节点 16，15</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(16);
+tree.insert(15);
+</code></pre>
+</div>
+
+<p>插入节点 16 没有问题，但在插入节点 15 时破坏了节点 7 的平衡条件，通过节点 7，16 和 15 的双旋转修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-5.png" alt="AVL Tree Example 5" /></p>
+
+<h5 id="section-22">06. 插入节点 14</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(14);
+</code></pre>
+</div>
+
+<p>插入节点 14 时破坏了节点 6 的平衡条件，通过节点 6，15 和 7 的双旋转修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-6.png" alt="AVL Tree Example 6" /></p>
+
+<h5 id="section-23">07. 插入节点 13</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(13);
+</code></pre>
+</div>
+
+<p>插入节点 13 导致根节点 4 的平衡条件破坏，通过节点 4 和它的右儿子 7 之间实行单旋转进行修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-7.png" alt="AVL Tree Example 7" /></p>
+
+<h5 id="section-24">08. 插入节点 12</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(12);
+</code></pre>
+</div>
+
+<p>插入节点 12 导致根节点 14 的平衡条件破坏，通过节点 14 和它的左儿子 13 之间实行单旋转进行修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-8.png" alt="AVL Tree Example 8" /></p>
+
+<h5 id="section-25">09. 插入节点 11</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(11);
+</code></pre>
+</div>
+
+<p>插入节点 11 导致根节点 15 的平衡条件破坏，通过节点 15 和它的左儿子 13 之间实行单旋转进行修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-9.png" alt="AVL Tree Example 9" /></p>
+
+<h5 id="section-26">10. 插入节点 10</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(10);
+</code></pre>
+</div>
+
+<p>插入节点 10 导致根节点 12 的平衡条件破坏，通过节点 12 和它的左儿子 11 之间实行单旋转进行修正</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-10.png" alt="AVL Tree Example 10" /></p>
+
+<h5 id="section-27">11. 插入节点 8，9</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tree.insert(8);
+tree.insert(9);
+</code></pre>
+</div>
+
+<p>插入节点 8 没有问题，但在插入节点 9 时破坏了节点 10 的平衡条件，通过 9，10 和 8 之间进行一个双旋转调整</p>
+
+<p><img src="/assets/blog/java/tree-avl-tree-example-11.png" alt="AVL Tree Example 11" /></p>
+
+<h2 id="b-">B 树</h2>
+
+<h3 id="section-28">定义</h3>
+
+<p>B 树属二叉查找树数据模型的范畴，而且具有带有平衡条件的二叉查找树的特点，阶为 M 的 B 树具有一下特征:</p>
+
+<ol>
+  <li>数据项存储在树叶上</li>
+  <li>非叶子节点存储直到 M - 1 个关键字以指示搜索的方向；关键字 i 代表子树 i + 1 中的最小的关键字</li>
+  <li>树的根或者是一片树叶，或者其儿子数在 2 和 M 之间</li>
+  <li>除根外，所有非树叶节点的儿子在 M/2 和 M 之间</li>
+  <li>所有的树叶都在相同的深度上并有 L/2 和 L 之间个数据项</li>
+</ol>
+
+
+
+<br/>
+<ul class="btn pull-right">
+<!-- Baidu Button BEGIN -->
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "分享ksoong.org的文章「数据结构 - 树」 - ksoong.org", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+</ul>
+
+<div class="ds-thread" data-thread-key="ksoong2016102601" data-title="数据结构 - 树" data-url="ksoong.org/tree"></div>
+
+	    <ul class="pager">
+		
+		<li class="previous"><a href="/wildfly-swarm-architecute">&laquo;&nbsp;WildFly Swarm Uber jar architecture...</a></li>
+		
+		
+		<li class="next"><a href="/jboss-modules-services">JBoss Modules 加载服务的实现分析&nbsp;&raquo;</a></li>
+		
+	    </ul>
+
+
+        </div>
+        <aside id="sidebar" role="complementary">
+          <div class="subscribe">
+            <h2 class="icon news">
+              <a href="/feed.xml">Subscribe</a>
+            </h2>
+          </div>
+          <nav class="latest">
+            <h2>Latest Posts</h2>
+            <ul>
+            
+              <li>
+                <div class="title">
+                  <a href="/mariadb">MariaDB 配置</a>
+                </div>
+                <div class="meta">
+                  Nov 17, 2016
+                </div>
+              </li>
+             
+              <li>
+                <div class="title">
+                  <a href="/jboss-modules-services">JBoss Modules 加载服务的实现分析</a>
+                </div>
+                <div class="meta">
+                  Nov 16, 2016
+                </div>
+              </li>
+             
+              <li>
+                <div class="title">
+                  <a href="/tree">数据结构 - 树</a>
+                </div>
+                <div class="meta">
+                  Oct 27, 2016
+                </div>
+              </li>
+             
+              <li>
+                <div class="title">
+                  <a href="/wildfly-swarm-architecute">WildFly Swarm Uber jar architecture...</a>
+                </div>
+                <div class="meta">
+                  Oct 9, 2016
+                </div>
+              </li>
+             
+              <li>
+                <div class="title">
+                  <a href="/fork-join">Fork/Join framework</a>
+                </div>
+                <div class="meta">
+                  Sep 24, 2016
+                </div>
+              </li>
+             
+            </ul>
+            
+                        
+          </nav>
+          <nav class="tags">
+            <h2>Categories</h2>
+            <div class="tag-cloud">
+              
+              <span class="tag tag-1">
+                <a href="/categories/jekyll">Jekyll(6)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/jboss">Jboss(31)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/java">Java(26)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/css">Css(2)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/database">Database(7)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/javaee">Javaee(11)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/linux">Linux(3)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/teiid">Teiid(41)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/maven">Maven(3)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/netty">Netty(7)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/data">Data(24)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/git">Git(2)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/other">Other(11)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/performance">Performance(4)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/security">Security(3)</a>
+              </span>
+              
+              <span class="tag tag-1">
+                <a href="/categories/docker">Docker(4)</a>
+              </span>
+              
+              
+            </div>
+          </nav>
+        </aside>
+      </div>
+
+
+    </div>
+    <footer>
+      <div class="container">
+        <div class="project">
+          <p class="bottom">
+            ©
+            Copyright 2009-2016 ksoong.
+            <br>
+            <i class="icon-fire"></i>
+            Mixed with <a href="http://twitter.github.com/bootstrap">Bootstrap</a>.
+            <br>
+            <i class="icon-share-alt"></i>
+            Website and docs licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+            <br>
+            Code released under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, v2.0</a>.
+          </p>
+        </div>
+        <div class="footer-nav">
+          <h4>Learn</h4>
+          <ul>
+            <li>
+              <a href="http://www.jboss.org/">JBoss</a>
+            </li>
+            <li>
+              <a href="http://infinispan.org/">Infinispan</a>
+            </li>
+            <li>
+              <a href="http://teiid.org/">Teiid</a>
+            </li>
+            <li>
+              <a href="https://github.com/kylinsoong">Github</a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="sponser">
+          <div class="follow-us">
+            <h4>Stay Informed</h4>
+            <ul>
+              <li>
+                <a href="https://plus.google.com/103933729718268414460?rel=author"><img alt="Google+" src="/css/googleplus-16.png" title="Follow ksoong.org on Google+"></a>
+              </li>
+              <li>
+                <a href="http://www.weibo.com/kylinsoong"><img alt="Weibo" src="/css/weibo_logo.jpg" title="Follow me on Weibo"></a>
+              </li>
+	      <li>
+                <a href="https://github.com/kylinsoong"><img alt="Github" src="/css/Octocat.jpg" title="Fork me on Github"></a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+        <a class="visible-desktop" href="#" id="toTop">Top</a>
+      </div>
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258751305'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1258751305%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+    </footer>
+  
+ 
+    <script src="/css/jquery-1.11.1.min.js"></script>
+    <script src="/css/bootstrap.js"></script>
+
+   <script>
+      $(function() {
+        $('html').addClass('ready');
+        prettify();
+        activateFooterGravity();
+        activateTooltips();
+        activateToTopControl();
+      });
+    </script>
+    <script src="/css/site.js"></script>
+
+    
+            
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"ksoong"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';
+                    ds.async = true;
+                    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            
+        
+
+
+</body>
+</html>
