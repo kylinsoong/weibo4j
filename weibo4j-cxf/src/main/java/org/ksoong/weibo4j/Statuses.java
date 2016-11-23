@@ -48,6 +48,18 @@ public class Statuses extends Weibo {
         return doPostMultipart(UPLOAD, new Prameters(new String[]{STATUS, VISIBLE, LIST_ID, LAT, LONG, ANNOTATIONS, RIP}, new Object[]{status, visible, list_id, lat, longs, annotations, rip}), picPath);
     }
     
+    public String upload(String status, String picUrl, String picName) {
+        return doPostMultipart(UPLOAD, new Prameters(new String[]{STATUS}, new Object[]{status}), picUrl, picName);
+    }
+    
+    public String upload(String status, String picUrl, String picName, int visible) {
+        return doPostMultipart(UPLOAD, new Prameters(new String[]{STATUS, VISIBLE}, new Object[]{status, visible}), picUrl, picName);
+    }
+    
+    public String upload(String status, String picUrl, String picName, int visible, String list_id, String lat, String longs, String annotations, String rip) {
+        return doPostMultipart(UPLOAD, new Prameters(new String[]{STATUS, VISIBLE, LIST_ID, LAT, LONG, ANNOTATIONS, RIP}, new Object[]{status, visible, list_id, lat, longs, annotations, rip}), picUrl, picName);
+    }
+    
     /**
      * http://open.weibo.com/wiki/2/statuses/update
      * @param status

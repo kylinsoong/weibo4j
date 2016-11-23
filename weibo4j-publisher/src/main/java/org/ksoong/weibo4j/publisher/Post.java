@@ -1,25 +1,34 @@
 package org.ksoong.weibo4j.publisher;
 
+import java.util.Random;
+
+/**
+ * A representation of a Weibo Post
+ * @author kylin
+ *
+ */
 public class Post {
     
     private boolean isIgnore;
     
     private String sourceURL;
     
-    private WeiboStatus status;
+    private Status status;
     
     private String pic;
     
+    private Imgs imgs;
+    
     public void setTxt(String txt) {
         if(this.status == null) {
-            this.status = new WeiboStatus();
+            this.status = new Status();
         }
         this.status.setTxt(txt);
     }
     
     public void setLink(String link) {
         if(this.status == null) {
-            this.status = new WeiboStatus();
+            this.status = new Status();
         }
         this.status.setLink(link);
     }
@@ -36,7 +45,7 @@ public class Post {
         return this.status.getLink();
     }
 
-    public void setStatus(WeiboStatus status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -64,8 +73,35 @@ public class Post {
         this.isIgnore = isIgnore;
     }
 
+    public Imgs getImgs() {
+        return imgs;
+    }
 
-    public static class WeiboStatus {
+    public void setImgs(Imgs imgs) {
+        this.imgs = imgs;
+    }
+    
+    public Img getImg() {
+        return imgs.random();
+    }
+    
+    public String getImgURL() {
+        Img img = getImg();
+        return img == null ? null : img.getSrc();
+    }
+    
+    public String getImgAlt() {
+        Img img = getImg();
+        return img == null ? null : img.getAlt();
+    }
+    
+    public String getImgName() {
+        Img img = getImg();
+        return img == null ? null : img.getName();
+    }
+
+
+    public static class Status {
         
         private String txt;
         private String link;
@@ -89,6 +125,66 @@ public class Post {
         @Override
         public String toString() {
             return txt + ", [link= " + link + "]";
+        }
+    }
+    
+    public static class Imgs {
+        
+        Random random = new Random();
+        
+        private final Img[] imgs;
+        
+        public Imgs(Img[] imgs){
+            this.imgs = imgs;
+        }
+        
+        public Img random() {
+            if(imgs.length == 0){
+                return null;
+            }
+            int index = random.nextInt(imgs.length - 1);
+            return imgs[index];
+        }
+        
+        public Img[] imgs() {
+            return this.imgs;
+        }
+    }
+    
+    public static class Img {
+        
+        private String alt;
+        private String src;
+        private String name;
+        
+        public Img(String alt, String src, String name) {
+            this.alt = alt;
+            this.src = src;
+            this.name = name;
+        }
+
+        public String getAlt() {
+            return alt;
+        }
+        
+        public void setAlt(String alt) {
+            this.alt = alt;
+        }
+        
+        public String getSrc() {
+            return src;
+        }
+        
+        public void setSrc(String src) {
+            this.src = src;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 

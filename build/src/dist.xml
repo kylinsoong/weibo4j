@@ -1,0 +1,66 @@
+<assembly>
+
+    <id>weibo4j-dist</id>
+ 
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <baseDirectory>${build.weibo4j}</baseDirectory>   
+
+    <fileSets>
+        <fileSet>
+            <directory>src/lib</directory>
+            <outputDirectory>${build.weibo4j}/lib</outputDirectory>
+            <filtered>true</filtered>
+            <excludes>
+                <exclude>**/*.jar</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>src/lib</directory>
+            <outputDirectory>${build.weibo4j}/lib</outputDirectory>
+            <filtered>false</filtered>
+            <includes>
+                <include>**/*.jar</include>
+            </includes>
+        </fileSet>        
+        <fileSet>
+            <directory>src/bin</directory>
+            <outputDirectory>${build.weibo4j}</outputDirectory>
+            <filtered>false</filtered>
+            <includes>
+                <include>**/*.sh</include>
+            </includes>
+            <fileMode>0755</fileMode>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>${build.weibo4j}/lib</outputDirectory>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <includes>
+                <include>org.ksoong:weibo4j-cxf</include>
+                <include>org.apache.cxf:cxf-rt-rs-client</include>
+                <include>org.apache.cxf:cxf-rt-transports-http</include>
+                <include>org.apache.cxf:cxf-core</include>
+                <include>org.codehaus.woodstox:woodstox-core-asl</include>
+                <include>org.codehaus.woodstox:stax2-api</include>
+                <include>org.apache.ws.xmlschema:xmlschema-core</include>
+                <include>org.apache.cxf:cxf-rt-frontend-jaxrs</include>
+                <include>javax.ws.rs:javax.ws.rs-api</include>
+                <include>javax.annotation:javax.annotation-api</include>
+                <include>org.apache.cxf:cxf-rt-rs-security-oauth2</include>
+                <include>org.apache.cxf:cxf-rt-rs-security-jose-jaxrs</include>
+                <include>org.apache.cxf:cxf-rt-security</include>
+                <include>org.apache.cxf:cxf-rt-rs-security-jose</include>
+                <include>org.apache.cxf:cxf-rt-rs-json-basic</include>
+                <include>org.ksoong:weibo4j-publisher</include>
+                <include>org.jsoup:jsoup</include>
+                <include>org.ksoong:weibo4j-examples</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+</assembly>

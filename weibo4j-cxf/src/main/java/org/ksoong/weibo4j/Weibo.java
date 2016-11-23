@@ -3,8 +3,11 @@ package org.ksoong.weibo4j;
 import static org.ksoong.weibo4j.tools.SecureIdentityTools.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -106,6 +109,53 @@ public class Weibo {
         }
         handleResponse(resp, wc);
         return result;
+    }
+    
+    String doPostMultipart(String api, Prameters prams, String picURL, String picName) {
+        WebClient wc = WebClient.create(api);
+        wc.type(MediaType.MULTIPART_FORM_DATA);
+        
+        List<Attachment> atts = new LinkedList<>();
+        ContentDisposition tockencd = new ContentDisposition("form-data; name=\"access_token\";");
+        atts.add(new Attachment(ACCESS_TOKEN, new ByteArrayInputStream(access_token().getBytes()), tockencd));
+        
+        String[] keys = prams.keys;
+        for(int i = 0 ; i < keys.length ; i ++){
+            ContentDisposition cd = new ContentDisposition("form-data; name=\"" + keys[i] + "\";");
+            atts.add(new Attachment(keys[i], new ByteArrayInputStream(prams.value(i).toString().getBytes()), cd));
+        }
+        
+        ContentDisposition cd = new ContentDisposition("form-data; name=\"" + PIC + "\";filename=\"" + picName + "\"");
+        atts.add(new Attachment("pic", new ByteArrayInputStream(readBytesFromURL(picURL)), cd));
+        Response resp= wc.post(new MultipartBody(atts));
+        String result = "";
+        try {
+            result = IOUtils.toString((InputStream) resp.getEntity());
+        } catch (IOException e) {
+            throw new ParseResultException(e);
+        }
+        handleResponse(resp, wc);
+        return result;
+    }
+
+    private byte[] readBytesFromURL(String picURL) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        URL url = null;
+        try {
+            url = new URL(picURL);
+        } catch (MalformedURLException e) {
+            throw new UoloadPicNotExistException(e);
+        }
+        try(InputStream in = url.openStream()){
+            byte[] byteChunk = new byte[4096];
+            int n;
+            while ( (n = in.read(byteChunk)) > 0 ) {
+                baos.write(byteChunk, 0, n);
+            }
+        } catch (Exception e) {
+            throw new UoloadPicNotExistException(e);
+        }
+        return baos.toByteArray();
     }
 
     private byte[] readBytesFromFile(Path path) {
