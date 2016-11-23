@@ -4,7 +4,7 @@
   <parent>
       <artifactId>weibo4j</artifactId>
       <groupId>org.ksoong</groupId>
-      <version>1.0</version>
+      <version>1.1</version>
   </parent>
   <artifactId>weibo4j-cxf</artifactId>
   <packaging>jar</packaging>
