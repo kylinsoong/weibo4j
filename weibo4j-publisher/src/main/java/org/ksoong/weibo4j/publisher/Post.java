@@ -124,7 +124,7 @@ public class Post {
 
         @Override
         public String toString() {
-            return txt + ", [link= " + link + "]";
+            return txt + ", " + link;
         }
     }
     
@@ -142,7 +142,7 @@ public class Post {
             if(imgs.length == 0){
                 return null;
             }
-            int index = random.nextInt(imgs.length - 1);
+            int index = random.nextInt(imgs.length);
             return imgs[index];
         }
         
@@ -185,6 +185,11 @@ public class Post {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return src ;
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import org.apache.cxf.rs.security.oauth2.client.Consumer;
 import org.apache.cxf.rs.security.oauth2.client.OAuthClientUtils;
+import org.ksoong.weibo4j.Oauth2;
 
 public class OAuthTools {
     
@@ -54,11 +55,13 @@ public class OAuthTools {
 
     private static void oauth2WeiboFlow(Scanner in) throws Exception {
 
-        oauth20Authorize(in, WEIBO_AUTHORIZE);
+        Oauth2Authorize entity = oauth20Authorize(in, WEIBO_AUTHORIZE);
+        String result = new Oauth2().access_token(entity.consumer.getClientId(), entity.consumer.getClientSecret(), entity.authCode, entity.callback);
+        System.out.println(result);
         
     }
     
-    private static void oauth20Authorize(Scanner in, String authorizeURL) throws Exception {
+    private static Oauth2Authorize oauth20Authorize(Scanner in, String authorizeURL) throws Exception {
         System.out.println("=== OAuth 2.0 Workflow ===");
         System.out.println();
 
@@ -79,7 +82,23 @@ public class OAuthTools {
         System.out.println("Authorize URL  = " + authenticateURL.toASCIIString());
         System.out.println("");
         
-       
+        String authCode = getInput(in, "Enter Token Secret (Auth Code, Pin) from previous step = ");
+        
+       return new Oauth2Authorize(consumer, callback, authCode);
+    }
+    
+    private static class Oauth2Authorize {
+        private Consumer consumer;
+        private String callback;
+        private String authCode;
+        
+        public Oauth2Authorize(Consumer consumer, String callback, String authCode) {
+            super();
+            this.consumer = consumer;
+            this.callback = callback;
+            this.authCode = authCode;
+        }
+
     }
 
 }

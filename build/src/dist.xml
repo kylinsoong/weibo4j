@@ -32,6 +32,7 @@
             <filtered>false</filtered>
             <includes>
                 <include>**/*.sh</include>
+                <include>**/*.properties</include>
             </includes>
             <fileMode>0755</fileMode>
         </fileSet>

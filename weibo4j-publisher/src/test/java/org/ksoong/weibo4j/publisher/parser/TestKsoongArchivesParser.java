@@ -98,4 +98,27 @@ public class TestKsoongArchivesParser {
         });
      
     }
+    
+    @Test
+    public void testJsoup_3() throws Exception {
+        
+        Document doc = Jsoup.parse(TestKsoongArchivesParser.class.getClassLoader().getResourceAsStream("ksoong.org.tree.html"), "UTF-8", "ksoong.org");
+        Element content = doc.getElementById("content");
+        
+        Elements h2s = content.getElementsByTag("h2");
+        StringBuilder sb = new StringBuilder();
+        h2s.forEach(h2 -> {
+            sb.append(h2.text());
+            sb.append(", ");
+        });
+        
+        String txt = sb.toString();
+        if(txt.length() > 100) {
+            txt = txt.substring(0, 100);
+            txt += "...";
+        }
+        
+//        System.out.println(txt);
+     
+    }
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
@@ -17,6 +18,8 @@ import org.ksoong.weibo4j.publisher.Post.Imgs;
 import org.ksoong.weibo4j.publisher.exceptions.JsoupParseException;
 
 public class KsoongArchivesParser implements IParser {
+    
+    Logger log = Logger.getLogger(KsoongArchivesParser.class.getName());
     
     private static final String URL = "http://ksoong.org/archive/";
     private static final String BASE_URL = "http://ksoong.org";
@@ -57,14 +60,18 @@ public class KsoongArchivesParser implements IParser {
         
         posts  = posts.stream().map( p -> {
             Post post = p;
-            post.setImgs(loadImages(post.getSourceURL()));
+            parseWebPage(post);
+//            post.setImgs(loadImages(post.getSourceURL()));
             return post;
         }).collect(Collectors.toList());
         
         return posts;
     }
 
-    private Imgs loadImages(String sourceURL) {
+    private void parseWebPage(Post post) {
+        
+        String sourceURL = post.getSourceURL();
+        
         try {
             Document doc = createDocument(sourceURL);
             Element content = doc.getElementById("content");
@@ -79,11 +86,35 @@ public class KsoongArchivesParser implements IParser {
                 list.add(new Img(alt, BASE_URL + src, name));
             });
             Img[] imgs = new Img[list.size()]; 
-            return new Imgs(list.toArray(imgs));
+            logImg(sourceURL, list);
+            post.setImgs(new Imgs(list.toArray(imgs)));
+            
+            Elements h2s = content.getElementsByTag("h2");
+            StringBuilder sb = new StringBuilder();
+            h2s.forEach(h2 -> {
+                sb.append(h2.text());
+                sb.append(", ");
+            });
+            
+            String txt = sb.toString();
+            txt = txt.substring(0, txt.lastIndexOf(","));
+            if(txt.length() > 100) {
+                txt = txt.substring(0, 100);
+                txt += "...";
+            }
+            
+            if(txt.length() > 20) {
+                post.setTxt(txt);
+            }
+            
         } catch (IOException e) {
             throw new JsoupParseException(e);
         }
+    }
 
+
+    private void logImg(String sourceURL, List<Img> list) {
+        log.info("Load " + list + " from " + sourceURL );
     }
 
 }
