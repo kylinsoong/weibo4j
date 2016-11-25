@@ -1,4 +1,4 @@
-package org.ksoong.weibo4j.publisher.parser;
+package org.ksoong.weibo4j.publisher;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +22,12 @@ public class TestModelPost {
             ex = e;
         }
         assertNotNull(ex);
+    }
+    
+    @Test
+    public void testDefault() {
+        Post post = new Post();
+        assertNull(post.getPic());
     }
 
 }

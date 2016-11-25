@@ -9,6 +9,11 @@ import java.util.Random;
  */
 public class Post {
     
+    public static enum Type {
+        KSOONG_BLOG,
+        TWITTER_SEARCH
+    }
+    
     private boolean isIgnore;
     
     private String sourceURL;
@@ -18,6 +23,8 @@ public class Post {
     private String pic;
     
     private Imgs imgs;
+    
+    private Type type;
     
     public void setTxt(String txt) {
         if(this.status == null) {
@@ -100,6 +107,14 @@ public class Post {
         return img == null ? null : img.getName();
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
 
     public static class Status {
         
@@ -124,7 +139,7 @@ public class Post {
 
         @Override
         public String toString() {
-            return txt + ", " + link;
+            return link == null ? txt : txt + ", " + link;
         }
     }
     

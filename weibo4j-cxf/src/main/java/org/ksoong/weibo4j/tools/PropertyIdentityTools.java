@@ -12,7 +12,7 @@ import org.ksoong.weibo4j.exceptions.PropertyIdentityException;
 public class PropertyIdentityTools {
     
     public static String loadValue(String key) {
-        return loadValue("oauth2.properties", key);
+        return loadValue("weibo4j.properties", key);
     }
     
     public static String loadValue(String propName, String key) {

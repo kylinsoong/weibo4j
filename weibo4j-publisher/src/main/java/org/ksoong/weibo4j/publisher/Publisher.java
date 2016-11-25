@@ -8,6 +8,7 @@ import org.ksoong.weibo4j.Statuses;
 import org.ksoong.weibo4j.Weibo;
 import org.ksoong.weibo4j.publisher.Post.Img;
 import org.ksoong.weibo4j.publisher.parser.KsoongArchivesParser;
+import org.ksoong.weibo4j.publisher.parser.TwitterSearchParser;
 import org.ksoong.weibo4j.tools.PropertyIdentityTools;
 
 public class Publisher {
@@ -19,13 +20,35 @@ public class Publisher {
         
         Statuses statuses = new Statuses(PropertyIdentityTools.loadValue(Weibo.ACCESS_TOKEN));
         
-        List<Post> posts = new KsoongArchivesParser().parse();
+        TwitterSearchParser twitter = new TwitterSearchParser();
+        List<Post> archives = new KsoongArchivesParser().parse();
         
+        boolean isTweets= true;
         while(true) {
-            int cur = new Random().nextInt(posts.size());
-            Post p = posts.get(cur);
-            String status = p.getStatus();
-            Img img = p.getImg();
+            if(isTweets) {
+                isTweets = false;
+                List<Post>  tweets = twitter.parse();
+                tweets.forEach(p -> send(p, statuses));
+            } else {
+                isTweets= true;
+                int cur = new Random().nextInt(archives.size());
+                send(archives.get(cur), statuses);
+            }
+            
+            Thread.currentThread().sleep(1000 * 60 * 25);
+        }
+        
+
+    }
+
+    private static Object send(Post post, Statuses statuses) {
+        
+        String status = post.getStatus();
+        if(post.getPic() != null) {
+            String picPath = post.getPic();
+            statuses.upload(status, picPath);
+        } else {
+            Img img = post.getImg();
             if(img == null) {
                 statuses.update(status);
             } else {
@@ -33,18 +56,22 @@ public class Publisher {
                 String picName = img.getName();
                 statuses.upload(status, picUrl, picName);
             }
-            logPost(p, img);
-            Thread.currentThread().sleep(1000 * 60 * 25);
         }
         
-
+        logPost(post);
+        return null;
     }
 
-    private static void logPost(Post p, Img img) {
+    private static void logPost(Post p) {
         StringBuffer sb = new StringBuffer();
-        sb.append("Post URL: " + p.getSourceURL() + ", Souce content: " + p.getStatus());
-        if(img != null){
-            sb.append(", Img URL: " + img.getSrc());
+        sb.append("Type: " + p.getType() + ", Souce content: " + p.getStatus());
+        if(p.getPic() != null) {
+            sb.append(", Img URL: " + p.getPic());
+        } else {
+            Img img = p.getImg();
+            if(img != null){
+                sb.append(", Img URL: " + img.getSrc());
+            }
         }
         log.info(sb.toString());
     }

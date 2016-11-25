@@ -10,6 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.ksoong.weibo4j.publisher.IParser;
 import org.ksoong.weibo4j.publisher.Post;
@@ -22,7 +23,7 @@ import org.ksoong.weibo4j.publisher.Post.Img;
  */
 public class TestKsoongArchivesParser {
     
-    private IParser createTestParser(){
+    private static IParser createTestParser(){
         return  new KsoongArchivesParser(){
 
             @Override
@@ -36,9 +37,15 @@ public class TestKsoongArchivesParser {
             }};
     }
     
+    static IParser parser;
+    
+    @BeforeClass
+    public static void initParser() {
+        parser = createTestParser();
+    }
+    
     @Test
     public void testParser_1() throws Exception {
-        IParser parser = createTestParser();
         
         List<Post> posts = parser.parse();
         
@@ -59,10 +66,19 @@ public class TestKsoongArchivesParser {
     @Test
     public void testParser_2() throws Exception {
 
-        IParser parser = createTestParser();      
         List<Post> posts = parser.parse();
-        Post post = posts.get(10);
-        System.out.println(post.getImgURL());
+        Post p = posts.get(10);
+        assertEquals(p.getSourceURL(), p.getStatusLink());
+        assertNotNull(p.getStatus());
+        assertTrue(p.getStatus().contains(p.getSourceURL()));
+    }
+    
+    @Test
+    public void testParser_3() throws Exception {
+
+        List<Post> posts = parser.parse();
+        Post p = posts.get(10);
+        assertNull(p.getPic());
     }
 
     @Test
@@ -118,7 +134,6 @@ public class TestKsoongArchivesParser {
             txt += "...";
         }
         
-//        System.out.println(txt);
      
     }
 }

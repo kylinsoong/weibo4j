@@ -64,6 +64,8 @@ public class Weibo {
     final static String LONG = "long";
     final static String PIC = "pic";
     final static String ANNOTATIONS = "annotations";
+    final static String Q = "q";
+    final static String RANGE = "range";
     
     public final static String ACCESS_TOKEN = "access_token";
     public final static String API_BASE =  "https://api.weibo.com/2";

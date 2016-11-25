@@ -1,5 +1,7 @@
 package org.ksoong.weibo4j.publisher.parser;
 
+import static org.ksoong.weibo4j.publisher.Post.Type.KSOONG_BLOG;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +19,11 @@ import org.ksoong.weibo4j.publisher.Post.Img;
 import org.ksoong.weibo4j.publisher.Post.Imgs;
 import org.ksoong.weibo4j.publisher.exceptions.JsoupParseException;
 
+/**
+ * A parser to parse http://ksoong.org/archive/ to generate posts
+ * @author kylin
+ *
+ */
 public class KsoongArchivesParser implements IParser {
     
     Logger log = Logger.getLogger(KsoongArchivesParser.class.getName());
@@ -48,6 +55,7 @@ public class KsoongArchivesParser implements IParser {
             Post post = new Post();
             post.setTxt(linkText);
             post.setLink(linkHref);
+            post.setType(KSOONG_BLOG);
             posts.add(post);
         }
         
@@ -61,7 +69,6 @@ public class KsoongArchivesParser implements IParser {
         posts  = posts.stream().map( p -> {
             Post post = p;
             parseWebPage(post);
-//            post.setImgs(loadImages(post.getSourceURL()));
             return post;
         }).collect(Collectors.toList());
         

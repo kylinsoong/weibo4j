@@ -60,6 +60,7 @@
                 <include>org.apache.cxf:cxf-rt-rs-json-basic</include>
                 <include>org.ksoong:weibo4j-publisher</include>
                 <include>org.jsoup:jsoup</include>
+                <include>org.twitter4j:twitter4j-core</include>
                 <include>org.ksoong:weibo4j-examples</include>
             </includes>
         </dependencySet>

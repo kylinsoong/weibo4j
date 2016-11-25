@@ -18,6 +18,7 @@
         <version.junit>4.11</version.junit>
         <cxf.version>3.1.8</cxf.version>
         <jsoup.version>1.10.1</jsoup.version>
+        <version.twitter4j>4.0.5</version.twitter4j>
         <build.weibo4j>weibo4j</build.weibo4j>
     </properties>
 
@@ -42,6 +43,11 @@
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.twitter4j</groupId>
+                <artifactId>twitter4j-core</artifactId>
+                <version>${version.twitter4j}</version>
             </dependency>
             <dependency>
                 <groupId>org.ksoong</groupId>
