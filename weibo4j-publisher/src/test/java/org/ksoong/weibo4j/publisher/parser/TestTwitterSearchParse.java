@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.ksoong.weibo4j.publisher.Post;
+import org.ksoong.weibo4j.publisher.Post.Img;
 import org.ksoong.weibo4j.tools.IOUtils;
 
 import twitter4j.MediaEntity;
@@ -29,6 +31,34 @@ public class TestTwitterSearchParse {
         System.setProperty("http.proxyHost", "squid.apac.redhat.com");
         System.setProperty("http.proxyPort", "3128");
     }
+    
+    @Ignore
+    @Test
+    public void testImgDownload() throws IOException {
+        String urlPath = "http://pbs.twimg.com/media/CyCK3FeWIAE0RUS.jpg";
+        Path file = Files.createFile(Paths.get("target", "CyCK3FeWIAE0RUS.jpg"));
+        IOUtils.downloadImg(urlPath, file.toFile());
+    }
+    
+    @Ignore
+    @Test
+    public void testParser() throws Exception {
+        List<Post> posts = new TwitterSearchParser().parse();
+        posts.forEach(p -> {
+            StringBuffer sb = new StringBuffer();
+            sb.append("Type: " + p.getType() + ", Souce content: " + p.getStatus());
+            if(p.getPic() != null) {
+                sb.append(", Img URL: " + p.getPic());
+            } else {
+                Img img = p.getImg();
+                if(img != null){
+                    sb.append(", Img URL: " + img.getSrc());
+                }
+            }
+            System.out.println(sb.toString());
+        });
+    }
+    
     
     @Test
     public void testCreateTempFile() throws IOException {

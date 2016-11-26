@@ -35,13 +35,13 @@ public class Publisher {
                 send(archives.get(cur), statuses);
             }
             
-            Thread.currentThread().sleep(1000 * 60 * 25);
+            Thread.currentThread().sleep(1000 * 60 * 30);
         }
         
 
     }
 
-    private static Object send(Post post, Statuses statuses) {
+    private static void send(Post post, Statuses statuses) {
         
         String status = post.getStatus();
         if(post.getPic() != null) {
@@ -59,7 +59,6 @@ public class Publisher {
         }
         
         logPost(post);
-        return null;
     }
 
     private static void logPost(Post p) {

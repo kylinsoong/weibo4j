@@ -9,7 +9,7 @@ public class ExampleOfUpload {
 
         Statuses statuses = new Statuses(Token.TOKEN);
         
-        String resp = statuses.upload("WildFly Swarm Teiid - http://ksoong.org/slide/wildfly-swarm-teiid/#/", "/home/kylin/Pictures/wildfly-swarm-Uberjar.png");
+        String resp = statuses.upload("Editorial: We need to harness the power of big data for medical progress https://t.co/nCKXWYGipY ", "/tmp/twitter_search/CyJYgaxWEAALsvU.JPG");
         
         System.out.println(resp);
     }

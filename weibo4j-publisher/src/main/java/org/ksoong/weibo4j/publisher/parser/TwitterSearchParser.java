@@ -2,7 +2,7 @@ package org.ksoong.weibo4j.publisher.parser;
 
 import static org.ksoong.weibo4j.tools.SecureIdentityTools.decode;
 import static org.ksoong.weibo4j.tools.PropertyIdentityTools.loadValue;
-import static org.ksoong.weibo4j.tools.IOUtils.download;
+import static org.ksoong.weibo4j.tools.IOUtils.downloadImg;
 import static org.ksoong.weibo4j.publisher.Post.Type.TWITTER_SEARCH;
 
 import java.io.File;
@@ -104,7 +104,7 @@ public class TwitterSearchParser implements IParser{
             Path tmpFile = Paths.get(base.toString(), name);
             Files.deleteIfExists(tmpFile);
             Files.createFile(tmpFile);
-            download(pic, tmpFile.toFile());
+            downloadImg(pic, tmpFile.toFile());
             return tmpFile.toString();
         } catch (IOException e) {
             throw new TwitterSearchParserException(e);
