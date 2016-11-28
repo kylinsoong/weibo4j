@@ -22,6 +22,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.URLEntity;
 import twitter4j.UserMentionEntity;
 import twitter4j.auth.AccessToken;
 
@@ -32,6 +33,51 @@ public class TestTwitterSearchParse {
         System.setProperty("http.proxyPort", "3128");
     }
     
+    @Test
+    public void testTopicConvert() {
+        String sample_1 = "What #BigData";
+        String sample_2 = "What #BigData.";
+        String sample_3 = "What #BigData,";
+        String sample_4 = "What #BigData. ";
+        String sample_5 = "What #BigData, ";
+        String sample_6 = "What #BigData can tell us about";
+        helpTest(sample_1);
+        helpTest(sample_2);
+        helpTest(sample_3);
+        helpTest(sample_4);
+        helpTest(sample_5);
+        helpTest(sample_6);
+    }
+    
+    private void helpTest(String sample) {
+
+        String[] array = sample.split(" ");
+        String[] newArray = new String[array.length];
+        for(int i = 0 ; i < array.length ; i ++) {
+            String item = array[i];
+            if(item.startsWith("#")){
+                if(item.endsWith(".") || item.endsWith(",") || item.endsWith("!") || item.endsWith("?")){
+                    char symbol = item.charAt(item.length() -1);
+                    item = item.substring(0, item.length() -1) + "#" + symbol;
+                } else {
+                    item = item + "#";
+                }
+            }
+            newArray[i] = item;
+        }
+        
+        String txt = "";
+        for(int i = 0 ; i < newArray.length ; i ++){
+            String item = newArray[i];
+            txt += item;
+            if(i != (newArray.length -1)) {
+                txt += " ";
+            }
+        }
+        
+        assertTrue(txt.contains("#BigData#"));
+    }
+
     @Ignore
     @Test
     public void testImgDownload() throws IOException {
@@ -109,6 +155,16 @@ public class TestTwitterSearchParse {
                     }
                     
                     System.out.println(mediaURL);
+                    if(tweet.getURLEntities().length > 0){
+                        for(URLEntity urlEntity : tweet.getURLEntities()){
+                            System.out.println(urlEntity.getDisplayURL());
+                            System.out.println(urlEntity.getExpandedURL());
+                            System.out.println(urlEntity.getURL());
+                            if(txt.contains(urlEntity.getURL())){
+                                txt = txt.replace(urlEntity.getURL(), urlEntity.getExpandedURL());
+                            }
+                        }
+                    }
                     System.out.println(txt);
                     break;
                 }

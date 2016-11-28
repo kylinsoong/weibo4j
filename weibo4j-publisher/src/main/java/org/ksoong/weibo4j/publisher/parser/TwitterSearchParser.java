@@ -24,6 +24,7 @@ import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
+import twitter4j.URLEntity;
 import twitter4j.UserMentionEntity;
 import twitter4j.auth.AccessToken;
 
@@ -70,6 +71,12 @@ public class TwitterSearchParser implements IParser{
                     if(tweet.getUserMentionEntities().length > 0){
                         txt = getOriginalTweet(tweet.getUserMentionEntities(), txt);
                     }
+                    for(URLEntity urlEntity : tweet.getURLEntities()){
+                        if(txt.contains(urlEntity.getURL())){
+                            txt = txt.replace(urlEntity.getURL(), urlEntity.getExpandedURL());
+                        }
+                    }
+                    txt = rewriteTopics(txt);
                     Post post = new Post();
                     post.setTxt(txt);
                     post.setPic(mediaURL);
@@ -89,6 +96,45 @@ public class TwitterSearchParser implements IParser{
         return posts;
     }
     
+    /**
+     * Twitter topic with format #Topic, but Weibo use format #Topic#
+     * 
+     * This method used to convert Twitter topic to Weibo topic
+     * @param txt
+     * @return
+     */
+    private String rewriteTopics(String sample) {
+        
+        if(!sample.contains("#")){
+            return sample;
+        }
+        
+        String[] array = sample.split(" ");
+        String[] newArray = new String[array.length];
+        for(int i = 0 ; i < array.length ; i ++) {
+            String item = array[i];
+            if(item.startsWith("#")){
+                if(item.endsWith(".") || item.endsWith(",") || item.endsWith("!") || item.endsWith("?")){
+                    char symbol = item.charAt(item.length() -1);
+                    item = item.substring(0, item.length() -1) + "#" + symbol;
+                } else {
+                    item = item + "#";
+                }
+            }
+            newArray[i] = item;
+        }
+        
+        String txt = "";
+        for(int i = 0 ; i < newArray.length ; i ++){
+            String item = newArray[i];
+            txt += item;
+            if(i != (newArray.length -1)) {
+                txt += " ";
+            }
+        }
+        return txt;
+    }
+
     private void logPost(Post post) {
         log.info("Twitter search '" + loadValue(SEARCH_KEYWORDS) + "' get post: " + post.getStatus() + ", picURL: " + post.getPic());
     }

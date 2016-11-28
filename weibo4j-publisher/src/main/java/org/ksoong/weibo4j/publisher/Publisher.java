@@ -35,7 +35,7 @@ public class Publisher {
                 send(archives.get(cur), statuses);
             }
             
-            Thread.currentThread().sleep(1000 * 60 * 30);
+            Thread.currentThread().sleep(1000 * 60 * 35);
         }
         
 
