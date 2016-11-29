@@ -43,7 +43,11 @@ public class Weibo {
     final static String MID = "mid";
     final static String UID = "uid";
     final static String UIDS = "uids";
+    final static String SOURCE_ID = "source_id";
+    final static String TARGET_ID = "target_id";
     final static String SCREEN_NAME = "screen_name";
+    final static String SOURCE_SCREEN_NAME = "source_screen_name";
+    final static String TARGET_SCREEN_NAME = "target_screen_name";
     final static String DOMAIN = "domain";
     final static String PAGE = "page";
     final static String BASE_APP = "base_app";
